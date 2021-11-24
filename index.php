@@ -29,7 +29,6 @@ if(isset($_POST['post'])){
 			<br>
 			<?php echo "Posts: " . $user['num_posts']. "<br>"; 
 			echo "Likes: " . $user['num_likes'];
-
 			?>
 		</div>
 
@@ -42,6 +41,9 @@ if(isset($_POST['post'])){
 			<hr>
 
 		</form>
+	
+
+
 
 		<div class="posts_area"></div>
 		<img id="loading" src="img/loading.gif" style="height: 50px;width: 50px;">
@@ -69,14 +71,14 @@ if(isset($_POST['post'])){
 			}
 		});
 
-		$(window).scroll(function() {
-			var height = $('.posts_area').height(); //Div containing posts
+		 $(window).scroll(function() {
+		var height = $('.posts_area').height(); //Div containing posts
 			var scroll_top = $(this).scrollTop();
 			var page = $('.posts_area').find('.nextPage').val();
-			var noMorePosts = $('.posts_area').find('.noMorePosts').val();
+			var noMorePosts = $('posts_area').find('.noMorePosts').val();
 
-			if ((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
-				$('#loading').show();
+		 	if ((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
+			$('#loading').show();
 
 				var ajaxReq = $.ajax({
 					url: "includes/handler/ajax_load_posts.php",
@@ -85,19 +87,19 @@ if(isset($_POST['post'])){
 					cache:false,
 
 					success: function(response) {
-						$('.posts_area').find('.nextPage').remove(); //Removes current .nextpage 
+					 	$('.posts_area').find('.nextPage').remove(); //Removes current .nextpage 
 						$('.posts_area').find('.noMorePosts').remove(); //Removes current .nextpage 
 
-						$('#loading').hide();
+				 	$('#loading').hide();
 						$('.posts_area').append(response);
-					}
-				});
+					 }
+		 		});
 
-			} //End if 
+		 	} //End if 
 
 			return false;
 
-		}); //End (window).scroll(function())
+		 }); //End (window).scroll(function())
 
 
 	});

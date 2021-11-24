@@ -2,14 +2,15 @@
 <html>
 <head>
 	<title>
-		<link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
+		
 	</title>
+	<link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
 </head>
 <body>
  <?php
 // session_start();
 require 'config/config.php';
-nclude("includes/classes/User.php");
+include("includes/classes/User.php");
 include("includes/classes/Post.php");
 if (isset($_SESSION['username'])) {
  	$userLoggedIn = $_SESSION['username'];
@@ -30,13 +31,15 @@ if (isset($_SESSION['username'])) {
 	}
 </script>
 <?php
+//get id of post
 if(isset($_GET['post_id'])){
 	$post_id=$_GET['post_id'];
 }
 $user_query=mysqli_query($con,"SELECT added_by,user_to From posts WHERE id='$post_id'");
 $row=mysqli_fetch_array($user_query);
 $posted_to=$row['added_by'];
-if(isset($_POSt['postComment'.$post_id])){
+
+if(isset($_POST['postComment'.$post_id])){
 	$post_body=$_POST['post_body'];
 	$post_body=mysqli_escape_string($con,$post_body);
 	$date_time_now=date("Y-m-d H:i:s");
@@ -46,5 +49,9 @@ if(isset($_POSt['postComment'.$post_id])){
 ?>
 <form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postcomment<?php echo $post_id;?>" method="POST">
 	<textarea name="post_body"></textarea>
-	<input type="submit" name="postComment<?php echo $post_id?>" value="Post">
+	<input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
 	</form>
+
+	
+
+
